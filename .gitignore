@@ -26,3 +26,9 @@ nbdist/
 /Source/PresCryption.Client.JavaFX/nbproject/private/
 /Source/MavenTest/target/
 /Source/PressCryption.Client/nbproject/private/
+/Source/PressCryption.MedicineManagement/nbproject/private/
+/Source/PressCryption.MedicineManagement.Contract/nbproject/private/
+/Source/PressCryption.MedicineManagement.Data.Contract/nbproject/private/
+/Source/PressCryption.MedicineManagement.Data.SQLite/nbproject/private/
+/Source/PressCryption.Prescription/nbproject/private/
+/Source/PressCryption.Prescription.Contract/nbproject/private/
