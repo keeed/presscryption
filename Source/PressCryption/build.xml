@@ -50,4 +50,26 @@
     nbproject/build-impl.xml and nbproject/jfx-impl.xml.
 
     -->
+    
+    <target name="-post-jfx-deploy">
+        <fx:deploy verbose="true" width="${javafx.run.width}" height="${javafx.run.height}" 
+                   nativeBundles="exe"
+                   outdir="${basedir}/${dist.dir}" outfile="${application.title}">
+            <fx:application name="${application.title}" mainClass="${javafx.main.class}" />
+            <fx:resources>
+                <fx:fileset dir="${basedir}/${dist.dir}" includes="PressCryption.jar"/>
+                <fx:fileset dir="${basedir}/${dist.dir}" includes="lib/*"/>
+<!--                <fx:fileset dir="${basedir}/${dist.dir}" includes="data/*"/>-->
+<!--                <fx:fileset dir="${basedir}/${dist.dir}" includes="*.properties"/>-->
+            </fx:resources>
+            <fx:info title="${application.title}" vendor="${application.vendor}"/>
+        </fx:deploy>          
+    </target>
+
+<!--    <target name="-post-jfx-jar">
+        <copy file="../database/PresCryption.db" flatten="true" todir="${dist.dir}/data" />
+        <copy file="${basedir}/src/prescryption/PresCryption.properties" flatten="true" todir="${dist.dir}" />
+        <copy file="${basedir}/src/prescryption/PresCryption.UI.properties" flatten="true" todir="${dist.dir}" />
+    </target>-->
+    
 </project>
