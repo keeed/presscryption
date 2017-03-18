@@ -51,7 +51,7 @@
 
     -->
     
-    <target name="-post-jfx-deploy">
+    <target name="-post-jfx-native">
         <fx:deploy verbose="true" width="${javafx.run.width}" height="${javafx.run.height}" 
                    nativeBundles="exe"
                    outdir="${basedir}/${dist.dir}" outfile="${application.title}">

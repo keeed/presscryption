@@ -25,6 +25,7 @@ public class PressCryption_Preloader extends Preloader {
     
     private Scene createPreloaderScene() {
         bar = new ProgressBar();
+        bar.setProgress(0);
         BorderPane p = new BorderPane();
         p.setCenter(bar);
         return new Scene(p, 300, 150);        
@@ -45,8 +46,15 @@ public class PressCryption_Preloader extends Preloader {
     }
     
     @Override
+    public void handleApplicationNotification(PreloaderNotification pln) {
+        if (pln instanceof ProgressNotification) {
+            handleProgressNotification((ProgressNotification)pln);
+        }
+    }
+    
+    @Override
     public void handleProgressNotification(ProgressNotification pn) {
-        bar.setProgress(pn.getProgress());
+        bar.setProgress(pn.getProgress() / 100);
     }    
     
 }
