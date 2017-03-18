@@ -17,7 +17,7 @@ import presscryption.client.viewdefinitions.IHomeView;
  * @author Kedren Villena
  */
 public class HomeViewController implements Initializable, IHomeView {
-
+    
     /**
      * Initializes the controller class.
      * @param url
