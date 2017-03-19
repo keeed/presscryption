@@ -1,8 +1,11 @@
 ## From https://github.com/github/gitignore/blob/master/Global/NetBeans.gitignore
 
 ## For Debugging Purposes Only
-/Source/PresCryption/lib/*.jar
-/Source/PresCryption/data/*.db
+/Source/PressCryption/lib/*.jar
+/Source/PressCryption/data/*.db
+/Source/PressCryption/PressCryption.properties
+/Source/PressCryption/PressCryption.UI.properties
+## End of Debugging Section
 
 nbproject/private/
 build/
@@ -10,21 +13,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-/PresCryption/nbproject/private/
-/PresCryption.MedicineManagement/nbproject/private/
-/PresCryption.MedicineManagement.Contract/nbproject/private/
-/PresCryption.Prescription/nbproject/private/
-/PresCryption.Prescription.Contract/nbproject/private/
-/PresCryption/..dist/
-/PresCryption.MedicineManagement.Data/nbproject/private/
-/PresCryption.MedicineManagement.Data.Contract/nbproject/private/
-/PresCryption.MedicineManagement.Data.SQLite/nbproject/private/
-/Source/PresCryption.Client/nbproject/private/
-/Source/PresCryption.Client.Swing/nbproject/private/
-/Source/PresCryption.Common/nbproject/private/
-/Source/PresCryption-Preloader/nbproject/private/
-/Source/PresCryption.Client.JavaFX/nbproject/private/
-/Source/MavenTest/target/
 /Source/PressCryption.Client/nbproject/private/
 /Source/PressCryption.MedicineManagement/nbproject/private/
 /Source/PressCryption.MedicineManagement.Contract/nbproject/private/
