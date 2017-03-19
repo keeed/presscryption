@@ -18,7 +18,7 @@ import javafx.beans.property.StringProperty;
  * @author Kedren Villena
  */
 public class Medicine {
-
+    
     private LongProperty _id;
     private StringProperty _genericName;
     private StringProperty _brandName;
@@ -31,81 +31,80 @@ public class Medicine {
             String brandName,
             LocalDateTime dateCreated,
             LocalDateTime dateModified) {
-        setId(id);
-        setGenericName(genericName);
-        setBrandName(brandName);
-        setDateCreated(dateCreated);
-        setDateModified(dateModified);
+        setId(new SimpleLongProperty(id));
+        setGenericName(new SimpleStringProperty(genericName));
+        setBrandName(new SimpleStringProperty(brandName));
+        setDateCreated(new SimpleObjectProperty<>(dateCreated));
+        setDateModified(new SimpleObjectProperty<>(dateModified));
     }
     
     /**
      * @return the _id
      */
-    protected long getId() {
-        return _id.getValue();
+    public LongProperty getId() {
+        return _id;
     }
 
     /**
      * @param _id the _id to set
      */
-    protected void setId(long _id) {
-        this._id = new SimpleLongProperty(_id);
+    public void setId(LongProperty _id) {
+        this._id = _id;
     }
 
     /**
      * @return the _genericName
      */
-    protected String getGenericName() {
-        return _genericName.getValue();
+    public StringProperty getGenericName() {
+        return _genericName;
     }
 
     /**
      * @param _genericName the _genericName to set
      */
-    protected void setGenericName(String _genericName) {
-        this._genericName = new SimpleStringProperty(_genericName);
+    public void setGenericName(StringProperty _genericName) {
+        this._genericName = _genericName;
     }
 
     /**
      * @return the _brandName
      */
-    protected String getBrandName() {
-        return _brandName.getValue();
+    public StringProperty getBrandName() {
+        return _brandName;
     }
 
     /**
      * @param _brandName the _brandName to set
      */
-    protected void setBrandName(String _brandName) {
-        this._brandName = new SimpleStringProperty(_brandName);
+    public void setBrandName(StringProperty _brandName) {
+        this._brandName = _brandName;
     }
 
     /**
      * @return the _dateCreated
      */
-    protected LocalDateTime getDateCreated() {
-        return _dateCreated.getValue();
+    public ObjectProperty<LocalDateTime> getDateCreated() {
+        return _dateCreated;
     }
 
     /**
      * @param _dateCreated the _dateCreated to set
      */
-    protected void setDateCreated(LocalDateTime _dateCreated) {
-        this._dateCreated = new SimpleObjectProperty<>(_dateCreated);
+    public void setDateCreated(ObjectProperty<LocalDateTime> _dateCreated) {
+        this._dateCreated = _dateCreated;
     }
 
     /**
      * @return the _dateModified
      */
-    protected LocalDateTime getDateModified() {
-        return _dateModified.getValue();
+    public ObjectProperty<LocalDateTime> getDateModified() {
+        return _dateModified;
     }
 
     /**
      * @param _dateModified the _dateModified to set
      */
-    protected void setDateModified(LocalDateTime _dateModified) {
-        this._dateModified = new SimpleObjectProperty<>(_dateModified);
+    public void setDateModified(ObjectProperty<LocalDateTime> _dateModified) {
+        this._dateModified = _dateModified;
     }
-
 }

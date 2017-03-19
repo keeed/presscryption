@@ -24,7 +24,7 @@ import presscryption.medicinemanagement.data.contract.services.IMedicineManageme
  */
 public class SQLiteMedicineManagementDataService implements IMedicineManagementDataService {
     
-    private static final String CONNECTION_STRING = "jdbc:sqlite:data/PresCryption.db";
+    private static final String CONNECTION_STRING = "jdbc:sqlite:data/PressCryption.db";
 
     @Override
     public long AddMedicine(MedicineDataDTO medicine) {

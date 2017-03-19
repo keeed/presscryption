@@ -13,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import presscryption.client.viewdefinitions.IHomeView;
 
@@ -32,16 +31,17 @@ public class HomeViewController implements Initializable, IHomeView {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }    
 
     @Override
     public void Show() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void ShowMessage(String message, boolean isError) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
     @FXML
@@ -62,6 +62,7 @@ public class HomeViewController implements Initializable, IHomeView {
             AnchorPane layout = (AnchorPane) loader.load();
 
             Stage stage = new Stage();
+            stage.setTitle("PressCryption");
             
             // Show scene containing the root layout.
             Scene scene = new Scene(layout);

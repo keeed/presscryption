@@ -15,6 +15,7 @@ import presscryption.client.models.Medicines;
 public interface IManageMedicinesView extends IView {
 
     public Medicines getMedicines();
+    public void setMedicines(Medicines medicines);
     
     public Medicine getSelectedMedicine();
     
