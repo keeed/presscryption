@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="305.0" prefWidth="493.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presscryption.client.javafx.controllers.HomeViewController">
+<AnchorPane id="AnchorPane" prefHeight="305.0" prefWidth="493.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presscryption.client.javafx.views.HomeViewController">
     <stylesheets>
         <URL value="@homeview.css" />
     </stylesheets>

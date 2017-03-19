@@ -59,17 +59,27 @@
             <fx:resources>
                 <fx:fileset dir="${basedir}/${dist.dir}" includes="PressCryption.jar"/>
                 <fx:fileset dir="${basedir}/${dist.dir}" includes="lib/*"/>
-<!--                <fx:fileset dir="${basedir}/${dist.dir}" includes="data/*"/>-->
-<!--                <fx:fileset dir="${basedir}/${dist.dir}" includes="*.properties"/>-->
+                <fx:fileset dir="${basedir}/${dist.dir}" includes="data/*"/>
+                <fx:fileset dir="${basedir}/${dist.dir}" includes="*.properties"/>
             </fx:resources>
             <fx:info title="${application.title}" vendor="${application.vendor}"/>
         </fx:deploy>          
     </target>
 
-<!--    <target name="-post-jfx-jar">
-        <copy file="../database/PresCryption.db" flatten="true" todir="${dist.dir}/data" />
-        <copy file="${basedir}/src/prescryption/PresCryption.properties" flatten="true" todir="${dist.dir}" />
-        <copy file="${basedir}/src/prescryption/PresCryption.UI.properties" flatten="true" todir="${dist.dir}" />
-    </target>-->
+    <target name="-post-jfx-jar">
+        <copy file="../database/PressCryption.db" flatten="true" todir="${dist.dir}/data" />
+        <copy file="${basedir}/src/presscryption/PressCryption.properties" flatten="true" todir="${dist.dir}" />
+        <copy file="${basedir}/src/presscryption/PressCryption.UI.properties" flatten="true" todir="${dist.dir}" />
+        
+        <!-- Debugging in NetBeans -->
+        <copy todir="${basedir}/lib">
+            <fileset dir="${dist.dir}/lib"/>
+        </copy>
+        <copy todir="${basedir}/data">
+            <fileset dir="${dist.dir}/data"/>
+        </copy>
+        <copy file="${dist.dir}/PressCryption.properties" todir="${basedir}"/>
+        <copy file="${dist.dir}/PressCryption.UI.properties" todir="${basedir}"/>
+    </target>
     
 </project>

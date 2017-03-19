@@ -12,7 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import presscryption.client.javafx.controllers.HomeViewController;
+import presscryption.client.javafx.views.HomeViewController;
+import presscryption.common.PropertiesManager;
 import presscryption.views.RootLayoutController;
 
 /**
@@ -26,17 +27,21 @@ public class PressCryption extends Application {
 
     @Override
     public void init() {
-
+        initializeProperties("PressCryption.properties");
+        intializeUIPropeties("PressCryption.UI.properties");
+        PropertiesManager.CreateComponents();
     }
 
+    private static void initializeProperties(String path) {
+        PropertiesManager.LoadProperties(PressCryption.class.getResourceAsStream(path));
+    }
+    
+    private void intializeUIPropeties(String path) {
+        PropertiesManager.LoadUIProperties(PressCryption.class.getResourceAsStream(path));
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
-//        Parent root = FXMLLoader.load(getClass().getResource("HomeView.fxml"));
-//        
-//        Scene scene = new Scene(root);
-//        
-//        stage.setScene(scene);
-//        stage.show();
         this.primaryStage = stage;
         this.primaryStage.setTitle("PressCryption");
 
@@ -89,9 +94,11 @@ public class PressCryption extends Application {
             // Give the controller access to the main app.
             HomeViewController controller = loader.getController();
             //controller.setMainApp(this);
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    
 }
