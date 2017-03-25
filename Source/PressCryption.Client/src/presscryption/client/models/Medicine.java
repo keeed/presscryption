@@ -26,6 +26,17 @@ public class Medicine {
     private ObjectProperty<LocalDateTime> _dateModified;
     
     public Medicine(
+            String genericName,
+            String brandName) {
+        this(
+                0,
+                genericName, 
+                brandName, 
+                LocalDateTime.now(), 
+                LocalDateTime.now());
+    }
+    
+    public Medicine(
             long id,
             String genericName,
             String brandName,

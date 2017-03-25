@@ -21,5 +21,5 @@ public interface IManageMedicinesView extends IView {
     
     public String getGenericName();
     public String getBrandName();
-    public int getQuantity();
+
 }

@@ -17,7 +17,7 @@ public class MedicineTranslator {
         MedicineDTO medicineDTO = new MedicineDTO();
         
         medicineDTO.setId(medicine.getId());
-        medicineDTO.setGenericName(medicine.getBrandName());
+        medicineDTO.setGenericName(medicine.getGenericName());
         medicineDTO.setBrandName(medicine.getBrandName());
         medicineDTO.setDateCreated(medicine.getDateCreated());
         medicineDTO.setDateModified(medicine.getDateModified());

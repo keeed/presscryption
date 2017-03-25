@@ -6,19 +6,22 @@
 package presscryption.client.javafx.views;
 
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import presscryption.client.models.Medicine;
 import presscryption.client.models.Medicines;
+import presscryption.client.presenters.ManageMedicinesPresenter;
+import presscryption.client.viewdefinitions.IManageMedicinesView;
 import presscryption.common.ComponentManager;
 import presscryption.medicinemanagement.contract.services.IMedicineManagementService;
 import presscryption.servicemodels.IMedicineServiceModel;
@@ -29,8 +32,11 @@ import presscryption.servicemodels.MedicineServiceModel;
  *
  * @author Kedren Villena
  */
-public class ManageMedicinesViewController implements Initializable {
+public class ManageMedicinesViewController implements Initializable, IManageMedicinesView {
 
+    private ManageMedicinesPresenter _manageMedicinesPresenter;
+    private Pane _fxmlPane;
+    
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     
     @FXML
@@ -67,7 +73,7 @@ public class ManageMedicinesViewController implements Initializable {
         //medicineTable.setItems(value);
         medicineServiceModel
                 = new MedicineServiceModel(ComponentManager.GetComponent(IMedicineManagementService.class));
-
+        
         Medicines medicines = medicineServiceModel.GetMedicines();
 
         medicineTable.setItems(medicines);
@@ -75,23 +81,69 @@ public class ManageMedicinesViewController implements Initializable {
 
     @FXML
     public void AddMedicineButton_OnAction() {
-        String genericName = genericNameTextField.getText();
-        String brandName = brandNameTextField.getText();
+        _manageMedicinesPresenter.AddMedicine();
+    }
 
-        if (genericName.isEmpty() && brandName.isEmpty()) {
-            return;
-        }
-        Medicine newMedicine
-                = new Medicine(0, genericName, brandName, LocalDateTime.now(), LocalDateTime.now());
+    @Override
+    public Medicines getMedicines() {
+        return (Medicines) medicineTable.getItems();
+    }
 
-        medicineServiceModel.AddMedicine(newMedicine);
+    @Override
+    public void setMedicines(Medicines medicines) {
+        medicineTable.getItems().clear();
+        medicineTable.setItems(medicines);
+    }
 
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.initOwner(null);
-        alert.setTitle("Success");
-        alert.setHeaderText("New Medicine Successfully Added!");
-        alert.setContentText("Sucess");
+    @Override
+    public Medicine getSelectedMedicine() {
+        return medicineTable.selectionModelProperty().getValue().getSelectedItem();
+    }
 
+    @Override
+    public String getGenericName() {
+        return genericNameTextField.getText();
+    }
+
+    @Override
+    public String getBrandName() {
+        return brandNameTextField.getText();
+    }
+
+    @Override
+    public void RegisterPresenter(Object presenter) {
+        _manageMedicinesPresenter = (ManageMedicinesPresenter)presenter;
+    }
+
+    @Override
+    public Pane GetFXMLPane() {
+        return _fxmlPane;
+    }
+
+    @Override
+    public void Show() {
+        Stage stage = new Stage();
+            stage.setTitle("PressCryption");
+            
+            // Show scene containing the root layout.
+            Scene scene = new Scene(_fxmlPane);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.show();
+    }
+
+    @Override
+    public void ShowMessage(Alert.AlertType alertType, String title, String headerText, String setContentText) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(setContentText);
+        
         alert.showAndWait();
+    }
+
+    @Override
+    public void SetFXMLLPane(Pane fxmlPane) {
+        _fxmlPane = fxmlPane;
     }
 }

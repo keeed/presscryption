@@ -9,10 +9,10 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import presscryption.client.javafx.views.HomeViewController;
+import presscryption.client.presenterfactories.HomePresenterFactory;
+import presscryption.client.presenters.HomePresenter;
 import presscryption.common.PropertiesManager;
 import presscryption.views.RootLayoutController;
 
@@ -82,23 +82,8 @@ public class PressCryption extends Application {
     }
 
     private void showHomeView() {
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HomeViewController.class.getResource("HomeView.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(personOverview);
-
-            // Give the controller access to the main app.
-            HomeViewController controller = loader.getController();
-            //controller.setMainApp(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HomePresenter homeViewPresenter = HomePresenterFactory.CreateInstance();
+        
+        rootLayout.setCenter(homeViewPresenter.getHomeView().GetFXMLPane());
     }
-
-    
 }

@@ -5,13 +5,26 @@
  */
 package presscryption.client.viewdefinitions;
 
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Pane;
+
 /**
  *
  * @author Kedren Villena
  */
 public interface IView {
     
+    public void RegisterPresenter(Object presenter);
+    
+    public void SetFXMLLPane(Pane fxmlPane);
+    
+    public Pane GetFXMLPane();
+    
     public void Show();
     
-    public void ShowMessage(String message, boolean isError);
+    public void ShowMessage(
+            AlertType alertType,
+            String title,
+            String headerText,
+            String setContentText);
 }
