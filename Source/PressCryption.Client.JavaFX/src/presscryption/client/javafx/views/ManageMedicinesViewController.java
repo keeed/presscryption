@@ -37,7 +37,7 @@ public class ManageMedicinesViewController implements Initializable, IManageMedi
     private ManageMedicinesPresenter _manageMedicinesPresenter;
     private Pane _fxmlPane;
     
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     
     @FXML
     private TextField genericNameTextField;
