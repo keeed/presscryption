@@ -18,11 +18,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import presscryption.client.constants.UIPropertiesKey;
 import presscryption.client.models.Medicine;
 import presscryption.client.models.Medicines;
 import presscryption.client.presenters.ManageMedicinesPresenter;
 import presscryption.client.viewdefinitions.IManageMedicinesView;
 import presscryption.common.ComponentManager;
+import presscryption.common.PropertiesManager;
 import presscryption.medicinemanagement.contract.services.IMedicineManagementService;
 import presscryption.servicemodels.IMedicineServiceModel;
 import presscryption.servicemodels.MedicineServiceModel;
@@ -123,7 +125,7 @@ public class ManageMedicinesViewController implements Initializable, IManageMedi
     @Override
     public void Show() {
         Stage stage = new Stage();
-            stage.setTitle("PressCryption");
+            stage.setTitle(PropertiesManager.GetUIProperty(UIPropertiesKey.APPLICATION_NAME));
             
             // Show scene containing the root layout.
             Scene scene = new Scene(_fxmlPane);

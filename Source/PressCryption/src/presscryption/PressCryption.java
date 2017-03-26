@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import presscryption.client.constants.UIPropertiesKey;
 import presscryption.client.presenterfactories.HomePresenterFactory;
 import presscryption.client.presenters.HomePresenter;
 import presscryption.common.PropertiesManager;
@@ -43,7 +44,8 @@ public class PressCryption extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.primaryStage = stage;
-        this.primaryStage.setTitle("PressCryption");
+        this.primaryStage
+                .setTitle(PropertiesManager.GetUIProperty(UIPropertiesKey.APPLICATION_NAME));
 
         initializeRootLayout();
 
