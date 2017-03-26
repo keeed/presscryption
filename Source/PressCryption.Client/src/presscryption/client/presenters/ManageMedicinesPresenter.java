@@ -64,7 +64,7 @@ public class ManageMedicinesPresenter {
         this._medicineServiceModel = _medicineServiceModel;
     }
 
-    public void OnInitialize() {
+    public void Initialize() {
         loadMedicines();
     }
 

@@ -13,6 +13,7 @@ import presscryption.client.models.Medicines;
  * @author Kedren Villena
  */
 public interface IMedicineServiceModel {
+    
     public Medicines GetMedicines();
 
     public long AddMedicine(Medicine medicine);

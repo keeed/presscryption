@@ -36,7 +36,7 @@ public class HomePresenter {
         ManageMedicinesPresenter manageMedicinesPresenter 
                 = ManageMedicinesPresenterFactory.CreateInstance();
         
-        manageMedicinesPresenter.OnInitialize();
+        manageMedicinesPresenter.Initialize();
         
         manageMedicinesPresenter.getManageMedicinesView().Show();
     }

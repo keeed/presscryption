@@ -84,7 +84,7 @@ public class ManageMedicinesViewPresenterTest {
         ManageMedicinesPresenter presenter 
                 = new ManageMedicinesPresenter(mockedManageMedicinesView, mockedMedicineServiceModel);
         
-        presenter.OnInitialize();
+        presenter.Initialize();
         
         assertTrue(presenter.getManageMedicinesView().getMedicines().size() > 0);
     }
@@ -119,8 +119,64 @@ public class ManageMedicinesViewPresenterTest {
         ManageMedicinesPresenter presenter 
                 = new ManageMedicinesPresenter(mockedManageMedicinesView, mockedMedicineServiceModel);
         
-        presenter.OnInitialize();
+        presenter.Initialize();
         
         assertTrue(0 == presenter.getManageMedicinesView().getMedicines().size());
+    }
+    
+    @Test
+    public void OnAddMedicine_ShouldSuccessfullyAddMedicine() 
+    {
+        Medicines viewMedicines = new Medicines();
+        Medicines servceModelMedicines = new Medicines();
+        
+        IMedicineServiceModel mockedMedicineServiceModel
+                = mock(IMedicineServiceModel.class);
+
+        when(mockedMedicineServiceModel.GetMedicines())
+                .thenReturn(servceModelMedicines);
+        
+        doAnswer((Answer<Long>) new Answer<Long>() {
+            @Override
+            public Long answer(InvocationOnMock iom) throws Throwable {
+                Medicine medicine1 = (Medicine)iom.getArgument(0);            
+                servceModelMedicines.AddMedicine(medicine1);
+                return new Long(1);
+            }
+        }).when(mockedMedicineServiceModel).AddMedicine(any(Medicine.class));
+        
+        IManageMedicinesView mockedManageMedicinesView 
+                = mock(IManageMedicinesView.class);
+        
+        doAnswer((Answer<Void>) new Answer<Void>() {
+            @Override
+            public Void answer(InvocationOnMock iom) throws Throwable {
+                Medicines medicines1 = (Medicines)iom.getArgument(0);            
+                viewMedicines.addAll(medicines1);
+                return null;
+            }
+        }).when(mockedManageMedicinesView).setMedicines(any(Medicines.class));
+        
+        Medicine newMedicine = new Medicine("New GenericName Medicine", "New BrandName Medicine");
+        
+        when(mockedManageMedicinesView.getMedicines())
+                .thenReturn(viewMedicines);
+        
+        when(mockedManageMedicinesView.getGenericName())
+                .thenReturn(newMedicine.getGenericName().getValue());
+        
+        when(mockedManageMedicinesView.getBrandName())
+                .thenReturn(newMedicine.getBrandName().getValue());
+        
+        ManageMedicinesPresenter presenter 
+                = new ManageMedicinesPresenter(mockedManageMedicinesView, mockedMedicineServiceModel);
+        
+        presenter.Initialize();
+        
+        int oldCount = presenter.getManageMedicinesView().getMedicines().size();
+        
+        presenter.AddMedicine();
+        
+        assertTrue(oldCount + 1 == presenter.getManageMedicinesView().getMedicines().size());
     }
 }
