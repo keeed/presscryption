@@ -23,7 +23,7 @@ import presscryption.medicinemanagement.data.contract.services.IMedicineManageme
  * @author Kedren Villena
  */
 public class SQLiteMedicineManagementDataService implements IMedicineManagementDataService {
-    
+
     private static final String CONNECTION_STRING = "jdbc:sqlite:data/PressCryption.db";
 
     @Override
@@ -32,7 +32,7 @@ public class SQLiteMedicineManagementDataService implements IMedicineManagementD
                 = "INSERT INTO `Medicine`(`ID`,`Generic Name`,`Brand Name`,`Date Created`,`Date Modified`,`Quantity`) VALUES (NULL,?,?,?,?,?);";
 
         try (Connection connection = SQLiteConnector.connect(CONNECTION_STRING);
-             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);) {
+                PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);) {
 
             preparedStatement.setString(1, medicine.getGenericName());
             preparedStatement.setString(2, medicine.getBrandName());
@@ -42,11 +42,11 @@ public class SQLiteMedicineManagementDataService implements IMedicineManagementD
 
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            
+
             if (resultSet.next()) {
                 return resultSet.getLong(1);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,44 +57,56 @@ public class SQLiteMedicineManagementDataService implements IMedicineManagementD
     @Override
     public ArrayList<MedicineDataDTO> GetAllMedicine() {
         String query = "SELECT * FROM Medicine";
-        
+
         ArrayList<MedicineDataDTO> medicinesDataDTO = new ArrayList<>();
 
         try (Connection connection = SQLiteConnector.connect(CONNECTION_STRING);
-             PreparedStatement preparedStatement = connection.prepareStatement(query);) {
-            
+                PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+
             preparedStatement.executeQuery();
-            
+
             ResultSet resultSet = preparedStatement.executeQuery();
-            
-            while(resultSet.next()) {
-                MedicineDataDTO medicineDataDTO = 
-                        new MedicineDataDTO(
-                                resultSet.getLong("ID"), 
-                                resultSet.getString("Generic Name"), 
-                                resultSet.getString("Brand Name"), 
-                                LocalDateTime.parse(resultSet.getString("Date Created")), 
-                                LocalDateTime.parse(resultSet.getString("Date Modified")), 
+
+            while (resultSet.next()) {
+                MedicineDataDTO medicineDataDTO
+                        = new MedicineDataDTO(
+                                resultSet.getLong("ID"),
+                                resultSet.getString("Generic Name"),
+                                resultSet.getString("Brand Name"),
+                                LocalDateTime.parse(resultSet.getString("Date Created")),
+                                LocalDateTime.parse(resultSet.getString("Date Modified")),
                                 resultSet.getInt("Quantity"));
-                
+
                 medicinesDataDTO.add(medicineDataDTO);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(SQLiteConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return medicinesDataDTO;
     }
 
     @Override
     public void UpdateMedicine(MedicineDataDTO medicine) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public void DeleteMedicine(MedicineDataDTO medicine) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "DELETE FROM Medicine WHERE Id = ? ";
+
+        ArrayList<MedicineDataDTO> medicinesDataDTO = new ArrayList<>();
+
+        try (Connection connection = SQLiteConnector.connect(CONNECTION_STRING);
+                PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+
+            preparedStatement.setLong(1, medicine.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SQLiteConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
 }

@@ -98,4 +98,13 @@ public class ManageMedicinesPresenter {
         
         loadMedicines();
     }
+    
+    public void DeleteSelectedMedicine()
+    {
+        Medicine medicineToDelete = _manageMedicinesView.getSelectedMedicine();
+        
+        _medicineServiceModel.DeleteMedicine(medicineToDelete);
+        
+        loadMedicines();
+    }
 }

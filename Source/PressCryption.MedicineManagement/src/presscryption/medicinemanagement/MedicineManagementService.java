@@ -75,6 +75,10 @@ public class MedicineManagementService implements IMedicineManagementService {
 
     @Override
     public void DeleteMedicine(MedicineDTO medicine) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        IMedicineManagementDataService medicineManagementDataService
+                = getMedicineManagementDataService();
+        
+        medicineManagementDataService.DeleteMedicine(
+                MedicineTranslator.ConvertToDataDTO(medicine));
     }
 }

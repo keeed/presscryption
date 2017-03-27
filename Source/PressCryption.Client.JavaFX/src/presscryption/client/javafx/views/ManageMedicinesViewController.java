@@ -7,12 +7,16 @@ package presscryption.client.javafx.views;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -84,6 +88,29 @@ public class ManageMedicinesViewController implements Initializable, IManageMedi
     @FXML
     public void AddMedicineButton_OnAction() {
         _manageMedicinesPresenter.AddMedicine();
+    }
+    
+    @FXML
+    public void DeleteMedicineButton_OnAction() {
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Delete");
+        alert.setHeaderText(
+                "Are you sure you want to delete " + this.getSelectedMedicine().getBrandName().getValue() + "?");
+        alert.setContentText("Please confirm delete action.");
+        
+        ObservableList<ButtonType> buttonTypes = FXCollections.observableArrayList();
+        buttonTypes.add(ButtonType.YES);
+        buttonTypes.add(ButtonType.CANCEL);
+        alert.getButtonTypes().clear();
+        alert.getButtonTypes().addAll(buttonTypes);
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if((result.isPresent()) && (result.get() == ButtonType.YES))
+        {
+            _manageMedicinesPresenter.DeleteSelectedMedicine();
+        }
     }
 
     @Override
