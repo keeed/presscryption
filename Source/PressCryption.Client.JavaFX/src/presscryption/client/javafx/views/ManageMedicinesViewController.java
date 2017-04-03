@@ -9,18 +9,25 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import presscryption.client.constants.UIPropertiesKey;
 import presscryption.client.models.Medicine;
@@ -38,17 +45,22 @@ import presscryption.servicemodels.MedicineServiceModel;
  *
  * @author Kedren Villena
  */
-public class ManageMedicinesViewController implements Initializable, IManageMedicinesView {
+public class ManageMedicinesViewController extends BaseViewController implements Initializable, IManageMedicinesView {
 
     private ManageMedicinesPresenter _manageMedicinesPresenter;
-    private Pane _fxmlPane;
-    
+
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    
+
     @FXML
     private TextField genericNameTextField;
     @FXML
     private TextField brandNameTextField;
+
+    @FXML
+    private Button updateButton;
+
+    @FXML
+    private Button deleteButton;
 
     @FXML
     private TableView<Medicine> medicineTable;
@@ -79,38 +91,89 @@ public class ManageMedicinesViewController implements Initializable, IManageMedi
         //medicineTable.setItems(value);
         medicineServiceModel
                 = new MedicineServiceModel(ComponentManager.GetComponent(IMedicineManagementService.class));
-        
+
         Medicines medicines = medicineServiceModel.GetMedicines();
 
         medicineTable.setItems(medicines);
+
+        // Set double click on row edit
+        medicineTable.setRowFactory(tv -> {
+            TableRow<Medicine> row = new TableRow<>();
+
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2
+                        && (event.getButton() == MouseButton.PRIMARY)
+                        && (!row.isEmpty())) {
+                    _manageMedicinesPresenter.UpdateSelectedMedicine();
+                }
+            });
+
+            final ContextMenu contextMenu = new ContextMenu();
+            final MenuItem editMenuItem = new MenuItem("Edit");
+            editMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    _manageMedicinesPresenter.UpdateSelectedMedicine();
+                }
+            });
+            final MenuItem removeMenuItem = new MenuItem("Remove");
+            removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if (confirmDelete()) {
+                        _manageMedicinesPresenter.DeleteSelectedMedicine();
+                    }
+                }
+            });
+            contextMenu.getItems().add(editMenuItem);
+            contextMenu.getItems().add(removeMenuItem);
+            // Set context menu on row, but use a binding to make it only show for non-empty rows:  
+            row.contextMenuProperty().bind(
+                    Bindings.when(row.emptyProperty())
+                            .then((ContextMenu) null)
+                            .otherwise(contextMenu)
+            );
+            return row;
+        });
     }
 
     @FXML
     public void AddMedicineButton_OnAction() {
         _manageMedicinesPresenter.AddMedicine();
     }
-    
+
     @FXML
     public void DeleteMedicineButton_OnAction() {
-        
+        if (confirmDelete()) {
+            _manageMedicinesPresenter.DeleteSelectedMedicine();
+        }
+    }
+
+    private boolean confirmDelete() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Delete");
         alert.setHeaderText(
                 "Are you sure you want to delete " + this.getSelectedMedicine().getBrandName().getValue() + "?");
         alert.setContentText("Please confirm delete action.");
-        
+
         ObservableList<ButtonType> buttonTypes = FXCollections.observableArrayList();
         buttonTypes.add(ButtonType.YES);
         buttonTypes.add(ButtonType.CANCEL);
         alert.getButtonTypes().clear();
         alert.getButtonTypes().addAll(buttonTypes);
-        
+
         Optional<ButtonType> result = alert.showAndWait();
-        
-        if((result.isPresent()) && (result.get() == ButtonType.YES))
-        {
-            _manageMedicinesPresenter.DeleteSelectedMedicine();
+
+        if ((result.isPresent()) && (result.get() == ButtonType.YES)) {
+            return true;
         }
+
+        return false;
+    }
+
+    @FXML
+    public void UpdateMedicine_OnAction() {
+        _manageMedicinesPresenter.UpdateSelectedMedicine();
     }
 
     @Override
@@ -122,6 +185,15 @@ public class ManageMedicinesViewController implements Initializable, IManageMedi
     public void setMedicines(Medicines medicines) {
         medicineTable.getItems().clear();
         medicineTable.setItems(medicines);
+        
+        // Update button states
+        if (medicines.isEmpty()) {
+            updateButton.setDisable(true);
+            deleteButton.setDisable(true);
+        } else {
+            updateButton.setDisable(false);
+            deleteButton.setDisable(false);
+        }
     }
 
     @Override
@@ -141,38 +213,23 @@ public class ManageMedicinesViewController implements Initializable, IManageMedi
 
     @Override
     public void RegisterPresenter(Object presenter) {
-        _manageMedicinesPresenter = (ManageMedicinesPresenter)presenter;
-    }
-
-    @Override
-    public Pane GetFXMLPane() {
-        return _fxmlPane;
+        _manageMedicinesPresenter = (ManageMedicinesPresenter) presenter;
     }
 
     @Override
     public void Show() {
         Stage stage = new Stage();
-            stage.setTitle(PropertiesManager.GetUIProperty(UIPropertiesKey.APPLICATION_NAME));
-            
-            // Show scene containing the root layout.
-            Scene scene = new Scene(_fxmlPane);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.show();
+        stage.setTitle(PropertiesManager.GetUIProperty(UIPropertiesKey.APPLICATION_NAME));
+
+        // Show scene containing the root layout.
+        Scene scene = new Scene(_fxmlPane);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
     }
 
     @Override
-    public void ShowMessage(Alert.AlertType alertType, String title, String headerText, String setContentText) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.setContentText(setContentText);
-        
-        alert.showAndWait();
-    }
+    public void ShowAndWait() {
 
-    @Override
-    public void SetFXMLLPane(Pane fxmlPane) {
-        _fxmlPane = fxmlPane;
     }
 }
