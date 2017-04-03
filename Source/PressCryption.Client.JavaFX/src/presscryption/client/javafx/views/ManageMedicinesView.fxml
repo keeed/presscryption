@@ -64,8 +64,8 @@
                   </TableView>
                   <ButtonBar layoutX="472.0" layoutY="235.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Update" />
-                        <Button mnemonicParsing="false" onAction="#DeleteMedicineButton_OnAction" text="Delete" />
+                      <Button fx:id="updateButton" mnemonicParsing="false" onAction="#UpdateMedicine_OnAction" text="Update" />
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#DeleteMedicineButton_OnAction" text="Delete" />
                     </buttons>
                   </ButtonBar>
                </children>

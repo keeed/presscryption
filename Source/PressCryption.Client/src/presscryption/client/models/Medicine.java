@@ -5,37 +5,45 @@
  */
 package presscryption.client.models;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.util.converter.LocalDateTimeStringConverter;
 
 /**
  *
  * @author Kedren Villena
  */
 public class Medicine {
-    
+
     private LongProperty _id;
     private StringProperty _genericName;
     private StringProperty _brandName;
     private ObjectProperty<LocalDateTime> _dateCreated;
     private ObjectProperty<LocalDateTime> _dateModified;
-    
+
     public Medicine(
             String genericName,
             String brandName) {
         this(
                 0,
-                genericName, 
-                brandName, 
-                LocalDateTime.now(), 
+                genericName,
+                brandName,
+                LocalDateTime.now(),
                 LocalDateTime.now());
     }
-    
+
     public Medicine(
             long id,
             String genericName,
@@ -49,6 +57,14 @@ public class Medicine {
         setDateModified(new SimpleObjectProperty<>(dateModified));
     }
     
+    public Medicine(Medicine medicine) {
+        this(medicine.getId().getValue(),
+                medicine.getGenericName().getValue(),
+                medicine.getBrandName().getValue(),
+                medicine.getDateCreated().getValue(),
+                medicine.getDateModified().getValue());
+    }
+
     /**
      * @return the _id
      */

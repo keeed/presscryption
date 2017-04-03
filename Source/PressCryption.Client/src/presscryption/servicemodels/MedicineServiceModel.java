@@ -71,4 +71,10 @@ public class MedicineServiceModel implements IMedicineServiceModel {
         MedicineDTO medicineDTO = MedicineTranslator.ConvertToDTO(medicine);
         _medicineManagementService.DeleteMedicine(medicineDTO);
     }
+    
+    @Override
+    public void UpdateMedicine(Medicine medicine) {
+        MedicineDTO medicineDTO = MedicineTranslator.ConvertToDTO(medicine);
+        _medicineManagementService.EditMedicine(medicineDTO);
+    }
 }

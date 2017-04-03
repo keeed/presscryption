@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package presscryption.client.constants;
+package presscryption.client.viewfactories;
+
+import presscryption.client.viewdefinitions.IEditMedicineView;
 
 /**
  *
  * @author Kedren Villena
  */
-public final class UIPropertiesKey {
-
-    public static final String APPLICATION_NAME = "UI.Property.ApplicationName";
+public interface IEditMedicineViewFactory {
+    
+    public IEditMedicineView CreateEditeMedicineView();
+  
 }

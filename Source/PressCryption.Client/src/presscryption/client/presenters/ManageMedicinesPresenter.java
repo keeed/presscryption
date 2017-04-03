@@ -8,6 +8,7 @@ package presscryption.client.presenters;
 import javafx.scene.control.Alert;
 import presscryption.client.models.Medicine;
 import presscryption.client.models.Medicines;
+import presscryption.client.presenterfactories.EditMedicinePresenterFactory;
 import presscryption.client.viewdefinitions.IManageMedicinesView;
 import presscryption.servicemodels.IMedicineServiceModel;
 
@@ -97,6 +98,16 @@ public class ManageMedicinesPresenter {
         }
         
         loadMedicines();
+    }
+    
+    public void UpdateSelectedMedicine() {
+        EditMedicinePresenter editMedicinePresenter 
+                = EditMedicinePresenterFactory.CreateInstance();
+        
+        editMedicinePresenter.SetSelectedMedicine(
+                _manageMedicinesView.getSelectedMedicine());
+        
+        editMedicinePresenter.getEditMedicineView().ShowAndWait();
     }
     
     public void DeleteSelectedMedicine()

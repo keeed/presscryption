@@ -22,6 +22,8 @@ public interface IView {
     
     public void Show();
     
+    public void ShowAndWait();
+    
     public void ShowMessage(
             AlertType alertType,
             String title,

@@ -19,4 +19,6 @@ public interface IMedicineServiceModel {
     public long AddMedicine(Medicine medicine);
 
     public void DeleteMedicine(Medicine medicine);
+    
+    public void UpdateMedicine(Medicine medicine);
 }

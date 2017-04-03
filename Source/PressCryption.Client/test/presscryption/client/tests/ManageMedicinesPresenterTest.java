@@ -24,9 +24,9 @@ import presscryption.servicemodels.IMedicineServiceModel;
  *
  * @author Kedren Villena
  */
-public class ManageMedicinesViewPresenterTest {
+public class ManageMedicinesPresenterTest {
     
-    public ManageMedicinesViewPresenterTest() {
+    public ManageMedicinesPresenterTest() {
     }
     
     @BeforeClass

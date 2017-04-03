@@ -89,7 +89,21 @@ public class SQLiteMedicineManagementDataService implements IMedicineManagementD
 
     @Override
     public void UpdateMedicine(MedicineDataDTO medicine) {
+        String query = "UPDATE `Medicine` SET `Generic Name` = ?,`Brand Name` = ?,`Date Modified` = ?"
+                + " WHERE `Id` = ?";
 
+        try (Connection connection = SQLiteConnector.connect(CONNECTION_STRING);
+                PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+
+            preparedStatement.setString(1, medicine.getGenericName());
+            preparedStatement.setString(2, medicine.getBrandName());
+            preparedStatement.setString(3, medicine.getDateModified().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            preparedStatement.setLong(4, medicine.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SQLiteConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
