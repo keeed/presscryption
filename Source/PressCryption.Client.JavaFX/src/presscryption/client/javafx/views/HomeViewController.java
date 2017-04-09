@@ -7,6 +7,7 @@ package presscryption.client.javafx.views;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import presscryption.client.javafx.views.BaseViewController;
 import presscryption.client.presenters.HomePresenter;
 import presscryption.client.viewdefinitions.IHomeView;
 

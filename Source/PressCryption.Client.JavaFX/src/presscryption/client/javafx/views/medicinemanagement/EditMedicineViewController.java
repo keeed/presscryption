@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package presscryption.client.javafx.views;
+package presscryption.client.javafx.views.medicinemanagement;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import presscryption.client.constants.UIPropertiesKey;
+import presscryption.client.javafx.views.BaseViewController;
 import presscryption.client.models.Medicine;
 import presscryption.client.presenters.EditMedicinePresenter;
 import presscryption.client.viewdefinitions.IEditMedicineView;

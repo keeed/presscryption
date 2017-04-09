@@ -8,7 +8,7 @@ package presscryption.client.javafx.viewfactories;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import presscryption.client.javafx.views.EditMedicineViewController;
+import presscryption.client.javafx.views.medicinemanagement.EditMedicineViewController;
 import presscryption.client.viewdefinitions.IEditMedicineView;
 import presscryption.client.viewfactories.IEditMedicineViewFactory;
 

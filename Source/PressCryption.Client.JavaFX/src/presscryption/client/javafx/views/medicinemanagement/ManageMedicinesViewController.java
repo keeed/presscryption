@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package presscryption.client.javafx.views;
+package presscryption.client.javafx.views.medicinemanagement;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import presscryption.client.constants.UIPropertiesKey;
+import presscryption.client.javafx.views.BaseViewController;
 import presscryption.client.models.Medicine;
 import presscryption.client.models.Medicines;
 import presscryption.client.presenters.ManageMedicinesPresenter;
