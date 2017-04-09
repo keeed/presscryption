@@ -123,4 +123,38 @@ public class SQLiteMedicineManagementDataService implements IMedicineManagementD
         }
     }
 
+    @Override
+    public MedicineDataDTO GetMedicine(MedicineDataDTO medicine) {
+        String query = "SELECT * FROM Medicine WHERE `Id` = ?";
+
+        ArrayList<MedicineDataDTO> medicinesDataDTO = new ArrayList<>();
+
+        try (Connection connection = SQLiteConnector.connect(CONNECTION_STRING);
+                PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+
+            preparedStatement.setLong(1, medicine.getId());
+            preparedStatement.executeQuery();
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                MedicineDataDTO medicineDataDTO
+                        = new MedicineDataDTO(
+                                resultSet.getLong("ID"),
+                                resultSet.getString("Generic Name"),
+                                resultSet.getString("Brand Name"),
+                                LocalDateTime.parse(resultSet.getString("Date Created")),
+                                LocalDateTime.parse(resultSet.getString("Date Modified")),
+                                resultSet.getInt("Quantity"));
+
+                medicinesDataDTO.add(medicineDataDTO);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SQLiteConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return medicinesDataDTO.get(0);
+    }
+
 }

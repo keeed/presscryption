@@ -22,4 +22,5 @@ public interface IMedicineManagementDataService {
     
     void DeleteMedicine(MedicineDataDTO medicine);
     
+    MedicineDataDTO GetMedicine(MedicineDataDTO medicine);
 }

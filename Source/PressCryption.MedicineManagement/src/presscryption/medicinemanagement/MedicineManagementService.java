@@ -48,7 +48,14 @@ public class MedicineManagementService implements IMedicineManagementService {
 
     @Override
     public MedicineDTO GetMedicine(MedicineDTO medicineToSearch) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        IMedicineManagementDataService medicineManagementDataService
+                = getMedicineManagementDataService();
+
+        MedicineDataDTO medicineDataDTO
+                 = medicineManagementDataService.GetMedicine(
+                         MedicineTranslator.ConvertToDataDTO(medicineToSearch));
+        
+        return MedicineTranslator.ConvertToDTO(medicineDataDTO);
     }
 
     @Override

@@ -25,5 +25,4 @@ public interface IMedicineManagementService {
     void EditMedicine(MedicineDTO medicine);
     
     void DeleteMedicine(MedicineDTO medicine);
-    
 }
